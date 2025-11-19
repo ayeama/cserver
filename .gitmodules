@@ -1,0 +1,3 @@
+[submodule "libs/alib"]
+	path = libs/alib
+	url = git@github.com:ayeama/alib.git
