@@ -18,7 +18,9 @@ int main() {
 
   signal(SIGINT, signal_handler);
 
-  a_http_handler_t handler = {};
+  a_http_handler_t handler = {
+      .funcs = NULL,
+  };
 
   a_http_handle_func(&handler, "POST /users", route_user_create);
   a_http_handle_func(&handler, "GET /users", route_user_read_many);
@@ -31,13 +33,6 @@ int main() {
       .port = 8000,
       .handler = &handler,
   };
-
-  // for (int i = 0; i < 25; i++) {
-  //   char key[3];
-  //   sprintf(key, "%d", i);
-  //   uint64_t hash = a_hash_fnv1a_64(key, sizeof(size_t));
-  //   printf("key: '%s' hash: '%016llx'\n", key, hash);
-  // }
 
   a_http_serve(&server);
 
