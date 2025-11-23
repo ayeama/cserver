@@ -1,16 +1,15 @@
 CC := gcc
-CFLAGS := -std=c99 -Wall -Wextra -Ilibs
+CFLAGS := -std=c23 -Wall -Wextra
 
 SRC_DIR := src
 LIBS_DIR := libs
 BUILD_DIR := build
 
-LIB_DIRS := $(wildcard $(LIBS_DIR)/*)
-LIB_INCLUDES := $(foreach dir,$(LIB_DIRS),-I$(dir))
-
+LIB_INCLUDE_DIRS := $(wildcard $(LIBS_DIR)/*/include)
+LIB_INCLUDES := $(foreach dir,$(LIB_INCLUDE_DIRS),-I$(dir))
 CFLAGS += $(LIB_INCLUDES)
 
-LIB_SRC := $(wildcard $(LIBS_DIR)/*/*.c)
+LIB_SRC := $(wildcard $(LIBS_DIR)/*/src/*.c)
 APP_SRC := $(wildcard $(SRC_DIR)/*.c)
 
 SERVER_BIN := $(BUILD_DIR)/server
@@ -30,10 +29,10 @@ $(CLIENT_BIN): $(SRC_DIR)/client.c $(LIB_SRC) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -o $@ $^
 
 run:
-	./build/server
+	./$(BUILD_DIR)/server
 
 format:
-	clang-format -i $(SRC_DIR)/*.c $(LIBS_DIR)/*/*.c $(LIBS_DIR)/*/*.h
+	clang-format -i $(SRC_DIR)/*.c
 
 clean:
 	rm -rf $(BUILD_DIR)
