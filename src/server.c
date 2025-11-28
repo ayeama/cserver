@@ -24,9 +24,9 @@ int main() {
 
     a_http_handle_func(&handler, "POST /users", route_user_create);
     a_http_handle_func(&handler, "GET /users", route_user_read_many);
-    a_http_handle_func(&handler, "GET /users/<id>", route_user_read_one);
-    a_http_handle_func(&handler, "PUT /users/<id>", route_user_update);
-    a_http_handle_func(&handler, "DELETE /users/<id>", route_user_delete);
+    a_http_handle_func(&handler, "GET /users/{id}", route_user_read_one);
+    a_http_handle_func(&handler, "PUT /users/{id}", route_user_update);
+    a_http_handle_func(&handler, "DELETE /users/{id}", route_user_delete);
 
     a_http_server_t server = {
         .host = "127.0.0.1",
